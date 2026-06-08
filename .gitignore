@@ -1,0 +1,31 @@
+# Raw data
+raw/
+*.raw
+*.RAW
+
+# Converted data
+mzml/
+*.mzML
+
+# Databases
+database/
+*.fasta
+*.fa
+*.faa
+*.gz
+
+# Search results
+results/
+*.pep.xml
+*.prot.xml
+*.mzid
+*.index
+*.html
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# Logs
+*.log
