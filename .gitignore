@@ -1,9 +1,14 @@
-# Raw data
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# Raw mass spectrometry data
 raw/
 *.raw
 *.RAW
 
-# Converted data
+# mzML files
 mzml/
 *.mzML
 
@@ -14,7 +19,7 @@ database/
 *.faa
 *.gz
 
-# Search results
+# TPP / Comet outputs
 results/
 *.pep.xml
 *.prot.xml
@@ -22,10 +27,8 @@ results/
 *.index
 *.html
 
-# R
-.Rhistory
-.RData
-.Rproj.user/
-
 # Logs
 *.log
+
+# OS files
+.DS_Store
