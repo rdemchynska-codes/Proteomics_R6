@@ -1,31 +1,27 @@
-# R
-.Rhistory
-.RData
-.Rproj.user/
+# Batch data directories
+batch*/raw/
+batch*/mzml/
+batch*/results/
+batch*/database/
 
-# Raw mass spectrometry data
-raw/
+# Proteomics file types
 *.raw
 *.RAW
-
-# mzML files
-mzml/
 *.mzML
-
-# Databases
-database/
 *.fasta
 *.fa
 *.faa
 *.gz
-
-# TPP / Comet outputs
-results/
 *.pep.xml
 *.prot.xml
 *.mzid
 *.index
 *.html
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
 
 # Logs
 *.log
