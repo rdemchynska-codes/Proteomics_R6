@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<libraSummary>
+    <fragmentMasses tolerance="20" />
+    <channel mz="126.127726" />
+    <channel mz="127.124761" />
+    <channel mz="127.131081" />
+    <channel mz="128.128116" />
+    <channel mz="128.134436" />
+    <channel mz="129.131471" />
+    <channel mz="129.137790" />
+    <channel mz="130.134825" />
+    <channel mz="130.141145" />
+    <channel mz="131.138180" />
+</libraSummary>

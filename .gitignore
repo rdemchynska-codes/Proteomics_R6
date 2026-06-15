@@ -4,6 +4,11 @@ batch*/mzml/
 batch*/results/
 batch*/database/
 
+# Python
+venv/
+__pycache__/
+*.py[cod]
+
 # Proteomics file types
 *.raw
 *.RAW
