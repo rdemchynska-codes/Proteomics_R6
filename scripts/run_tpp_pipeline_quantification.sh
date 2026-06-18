@@ -111,16 +111,14 @@ cat <<EOF > /data/batch1/search/libra_condition.xml
     <reagent mz="130.1411"/>
     <reagent mz="131.1382"/>
   </fragmentMasses>
-  <isotopicContributions>
-    -2
-  </isotopicContributions>
-  <massTolerance value="0.05"/>
+  <massTolerance value="0.001"/>
   <centroiding type="2" iterations="1"/>
   <normalization type="1"/>
   <targetMs level="3"/>
+  <reporterFromMS3 value="1"/>
   <output type="1"/>
   <quantitationFile name="quantitation.tsv"/>
-  <minimumThreshhold value="20"/>
+  <minimumThreshhold value="0"/>
 </SUMmOnCondition>
 EOF
 
