@@ -90,20 +90,20 @@ done
 
 echo "Creating Libra configuration"
 
-cat > libra_condition.xml <<EOF
+cat <<EOF > /data/batch1/search/libra_condition.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <libraSummary>
-    <fragmentMasses tolerance="20" />
-    <channel mz="126.127726" />
-    <channel mz="127.124761" />
-    <channel mz="127.131081" />
-    <channel mz="128.128116" />
-    <channel mz="128.134436" />
-    <channel mz="129.131471" />
-    <channel mz="129.137790" />
-    <channel mz="130.134825" />
-    <channel mz="130.141145" />
-    <channel mz="131.138180" />
+    <fragmentMasses tolerance="0.003" />
+    <channel number="1" targetMass="126.127726" />
+    <channel number="2" targetMass="127.124761" />
+    <channel number="3" targetMass="127.131081" />
+    <channel number="4" targetMass="128.128116" />
+    <channel number="5" targetMass="128.134436" />
+    <channel number="6" targetMass="129.131471" />
+    <channel number="7" targetMass="129.137790" />
+    <channel number="8" targetMass="130.134825" />
+    <channel number="9" targetMass="130.141145" />
+    <channel number="10" targetMass="131.138180" />
 </libraSummary>
 EOF
 
@@ -116,7 +116,7 @@ echo "Running PeptideProphet + Libra"
 xinteract \
 -N"${BATCH_DIR}/results/interact.pep.xml" \
 -OAP \
--l"${BATCH_DIR}/search/libra_condition.xml" \
+-L"${BATCH_DIR}/search/libra_condition.xml" \
 "${BATCH_DIR}"/mzml/*.pep.xml
 
 ########################################
@@ -137,13 +137,8 @@ echo "Exporting for R"
 
 cd "${BATCH_DIR}/results"
 
-input=$(ls *.mzid | head -n1)
-output="interact.pep_Rcompatible.mzid"
+idconvert interact.pep.xml
 
-sed '/<MzIdentML /{
-s|http://psidev.info/psi/pi/mzIdentML/1\.2|http://psidev.info/psi/pi/mzIdentML/1.1|g
-}' "$input" > "$output"
-
-rm frontalcortex_*.mzid anteriorcingulategyrus_*.mzid 2>/dev/null || true
+sed 's|http://psidev.info/psi/pi/mzIdentML/1.2|http://psidev.info/psi/pi/mzIdentML/1.1|g' frontalcortex_batch1_fraction01.mzid > interact.pep_Rcompatible.mzid
 
 echo "Done"
