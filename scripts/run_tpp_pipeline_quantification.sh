@@ -73,16 +73,22 @@ sed -i 's/^variable_mod02.*/variable_mod02 = 0.984016 NQ 0 3 -1 0 0/' ${PARAMS}
 # Run Comet
 ########################################
 
-echo "Running Comet"
+#echo "Running Comet"
 
-for file in "${BATCH_DIR}"/mzml/*.mzML
-do
+#for file in "${BATCH_DIR}"/mzml/*.mzML
+#do
 
-    echo "Processing $(basename "$file")"
+   # echo "Processing $(basename "$file")"
 
-    comet -P"${PARAMS}" "$file"
+    #comet -P"${PARAMS}" "$file"
 
-done
+#done
+
+########################################
+# Create Libra configuration
+########################################
+
+echo "Creating Libra configuration"
 
 ########################################
 # Create Libra configuration
@@ -92,19 +98,30 @@ echo "Creating Libra configuration"
 
 cat <<EOF > /data/batch1/search/libra_condition.xml
 <?xml version="1.0" encoding="UTF-8"?>
-<libraSummary>
-    <fragmentMasses tolerance="0.003" />
-    <channel number="1" targetMass="126.127726" />
-    <channel number="2" targetMass="127.124761" />
-    <channel number="3" targetMass="127.131081" />
-    <channel number="4" targetMass="128.128116" />
-    <channel number="5" targetMass="128.134436" />
-    <channel number="6" targetMass="129.131471" />
-    <channel number="7" targetMass="129.137790" />
-    <channel number="8" targetMass="130.134825" />
-    <channel number="9" targetMass="130.141145" />
-    <channel number="10" targetMass="131.138180" />
-</libraSummary>
+<SUMmOnCondition description="TMT-10plex-AD-PD-Brain-Tissue">
+  <fragmentMasses>
+    <reagent mz="126.1277"/>
+    <reagent mz="127.1248"/>
+    <reagent mz="127.1311"/>
+    <reagent mz="128.1281"/>
+    <reagent mz="128.1344"/>
+    <reagent mz="129.1315"/>
+    <reagent mz="129.1378"/>
+    <reagent mz="130.1348"/>
+    <reagent mz="130.1411"/>
+    <reagent mz="131.1382"/>
+  </fragmentMasses>
+  <isotopicContributions>
+    -2
+  </isotopicContributions>
+  <massTolerance value="0.05"/>
+  <centroiding type="2" iterations="1"/>
+  <normalization type="1"/>
+  <targetMs level="3"/>
+  <output type="1"/>
+  <quantitationFile name="quantitation.tsv"/>
+  <minimumThreshhold value="20"/>
+</SUMmOnCondition>
 EOF
 
 ########################################
@@ -113,10 +130,16 @@ EOF
 
 echo "Running PeptideProphet + Libra"
 
+#xinteract \
+#-N"${BATCH_DIR}/results/interact.pep.xml" \
+#-OAP \
+#-L"${BATCH_DIR}/search/libra_condition.xml" \
+#"${BATCH_DIR}"/mzml/*.pep.xml
+
 xinteract \
 -N"${BATCH_DIR}/results/interact.pep.xml" \
--OAP \
 -L"${BATCH_DIR}/search/libra_condition.xml" \
+-Op \
 "${BATCH_DIR}"/mzml/*.pep.xml
 
 ########################################
@@ -133,12 +156,12 @@ ProteinProphet \
 # Export for R
 ########################################
 
-echo "Exporting for R"
+#echo "Exporting for R"
 
-cd "${BATCH_DIR}/results"
+#cd "${BATCH_DIR}/results"
 
-idconvert interact.pep.xml
+#idconvert interact.pep.xml
 
-sed 's|http://psidev.info/psi/pi/mzIdentML/1.2|http://psidev.info/psi/pi/mzIdentML/1.1|g' frontalcortex_batch1_fraction01.mzid > interact.pep_Rcompatible.mzid
+#sed 's|http://psidev.info/psi/pi/mzIdentML/1.2|http://psidev.info/psi/pi/mzIdentML/1.1|g' frontalcortex_batch1_fraction01.mzid > interact.pep_Rcompatible.mzid
 
 echo "Done"

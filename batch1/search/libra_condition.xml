@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<libraSummary>
-    <fragmentMasses tolerance="20" />
-    <channel mz="126.127726" />
-    <channel mz="127.124761" />
-    <channel mz="127.131081" />
-    <channel mz="128.128116" />
-    <channel mz="128.134436" />
-    <channel mz="129.131471" />
-    <channel mz="129.137790" />
-    <channel mz="130.134825" />
-    <channel mz="130.141145" />
-    <channel mz="131.138180" />
-</libraSummary>
+<SUMmOnCondition description="TMT-10plex-AD-PD-Brain-Tissue">
+  <fragmentMasses>
+    <reagent mz="126.1277"/>
+    <reagent mz="127.1248"/>
+    <reagent mz="127.1311"/>
+    <reagent mz="128.1281"/>
+    <reagent mz="128.1344"/>
+    <reagent mz="129.1315"/>
+    <reagent mz="129.1378"/>
+    <reagent mz="130.1348"/>
+    <reagent mz="130.1411"/>
+    <reagent mz="131.1382"/>
+  </fragmentMasses>
+  <isotopicContributions>
+    -2
+  </isotopicContributions>
+  <massTolerance value="0.05"/>
+  <centroiding type="2" iterations="1"/>
+  <normalization type="1"/>
+  <targetMs level="3"/>
+  <output type="1"/>
+  <quantitationFile name="quantitation.tsv"/>
+  <minimumThreshhold value="20"/>
+</SUMmOnCondition>
