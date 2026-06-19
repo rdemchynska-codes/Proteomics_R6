@@ -73,22 +73,16 @@ sed -i 's/^variable_mod02.*/variable_mod02 = 0.984016 NQ 0 3 -1 0 0/' ${PARAMS}
 # Run Comet
 ########################################
 
-#echo "Running Comet"
+echo "Running Comet"
 
-#for file in "${BATCH_DIR}"/mzml/*.mzML
-#do
+for file in "${BATCH_DIR}"/mzml/*.mzML
+do
 
-   # echo "Processing $(basename "$file")"
+    echo "Processing $(basename "$file")"
 
-    #comet -P"${PARAMS}" "$file"
+    comet -P"${PARAMS}" "$file"
 
-#done
-
-########################################
-# Create Libra configuration
-########################################
-
-echo "Creating Libra configuration"
+done
 
 ########################################
 # Create Libra configuration
@@ -96,7 +90,7 @@ echo "Creating Libra configuration"
 
 echo "Creating Libra configuration"
 
-cat <<EOF > /data/batch1/search/libra_condition.xml
+cat <<EOF > "${BATCH_DIR}/search/libra_condition.xml"
 <?xml version="1.0" encoding="UTF-8"?>
 <SUMmOnCondition description="TMT-10plex-AD-PD-Brain-Tissue">
   <fragmentMasses>
@@ -111,16 +105,14 @@ cat <<EOF > /data/batch1/search/libra_condition.xml
     <reagent mz="130.1411"/>
     <reagent mz="131.1382"/>
   </fragmentMasses>
-  <isotopicContributions>
-    -2
-  </isotopicContributions>
-  <massTolerance value="0.05"/>
+  <massTolerance value="0.001"/>
   <centroiding type="2" iterations="1"/>
   <normalization type="1"/>
   <targetMs level="3"/>
+  <reporterFromMS3 value="1"/>
   <output type="1"/>
   <quantitationFile name="quantitation.tsv"/>
-  <minimumThreshhold value="20"/>
+  <minimumThreshhold value="0"/>
 </SUMmOnCondition>
 EOF
 
@@ -129,12 +121,6 @@ EOF
 ########################################
 
 echo "Running PeptideProphet + Libra"
-
-#xinteract \
-#-N"${BATCH_DIR}/results/interact.pep.xml" \
-#-OAP \
-#-L"${BATCH_DIR}/search/libra_condition.xml" \
-#"${BATCH_DIR}"/mzml/*.pep.xml
 
 xinteract \
 -N"${BATCH_DIR}/results/interact.pep.xml" \
@@ -152,16 +138,14 @@ ProteinProphet \
 "${BATCH_DIR}/results/interact.pep.xml" \
 "${BATCH_DIR}/results/interact.prot.xml"
 
-########################################
+#######################################
 # Export for R
 ########################################
 
-#echo "Exporting for R"
+echo "Running LibraProteinRatioParser"
 
-#cd "${BATCH_DIR}/results"
+LibraProteinRatioParser \
+"${BATCH_DIR}/results/interact.prot.xml" \
+-c "${BATCH_DIR}/search/libra_condition.xml"
 
-#idconvert interact.pep.xml
-
-#sed 's|http://psidev.info/psi/pi/mzIdentML/1.2|http://psidev.info/psi/pi/mzIdentML/1.1|g' frontalcortex_batch1_fraction01.mzid > interact.pep_Rcompatible.mzid
-
-echo "Done"
+echo "Success!"
