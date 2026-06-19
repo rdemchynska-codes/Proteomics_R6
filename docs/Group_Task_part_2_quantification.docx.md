@@ -125,8 +125,9 @@ batch1/mzml/*.pep.xml
 
 ```
 
+ProteinProphet
 ```shell
-ProteinProphet /data/batch1/results/interact.pep.xml /data/batch1/results/interact.prot.xml
+ /data/batch1/results/interact.pep.xml /data/batch1/results/interact.prot.xml
 
 ```
 
